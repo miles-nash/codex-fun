@@ -8,4 +8,5 @@ This project contains a minimalist interactive art exhibit. Open `index.html` in
 - **Philosophy in Motion** – Move the mouse to slowly cycle philosophical quotes over a shifting pattern.
 - **Collaborative Sculpture** – Add reflections as colorful tiles and drag them around the board.
 
+
 Each page is a standalone HTML file with minimal JavaScript and CSS.

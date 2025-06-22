@@ -15,6 +15,7 @@
 <button id="add">Add to sculpture</button>
 <div id="board"></div>
 <script>
+
 const board = document.getElementById('board');
 
 function createPiece(text){
@@ -46,6 +47,7 @@ document.getElementById('add').addEventListener('click', ()=>{
   if(text){
     board.appendChild(createPiece(text));
     input.value='';
+
   }
 });
 </script>
