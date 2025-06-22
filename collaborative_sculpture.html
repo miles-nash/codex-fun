@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Collaborative Sculpture</title>
+<style>
+  body { font-family:sans-serif; text-align:center; margin:20px; }
+  #board div { background:beige; padding:10px; margin:5px; display:inline-block; }
+</style>
+</head>
+<body>
+<h1>Collaborative Sculpture</h1>
+<textarea id="message" rows="3" cols="40" placeholder="Add your reflection"></textarea><br>
+<button id="add">Add to sculpture</button>
+<div id="board"></div>
+<script>
+document.getElementById('add').addEventListener('click', ()=>{
+  const input = document.getElementById('message');
+  const text = input.value.trim();
+  if(text){
+    const div = document.createElement('div');
+    div.textContent = text;
+    div.style.transform = 'rotate('+(Math.random()*20-10)+'deg)';
+    document.getElementById('board').appendChild(div);
+    input.value = '';
+  }
+});
+</script>
+</body>
+</html>

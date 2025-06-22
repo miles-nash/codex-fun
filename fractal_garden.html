@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fractal Garden Hub</title>
+<style>
+  body { margin:0; background:#fdfdfd; font-family:sans-serif; text-align:center; }
+  canvas { display:block; margin:auto; }
+</style>
+</head>
+<body>
+<h1>Fractal Garden Hub</h1>
+<canvas id="fractalCanvas" width="800" height="600"></canvas>
+<script>
+const canvas = document.getElementById('fractalCanvas');
+const ctx = canvas.getContext('2d');
+const params = {angle:Math.PI/4};
+function drawBranch(x, y, len, angle, depth){
+  if(depth===0) return;
+  const x2 = x + len*Math.cos(angle);
+  const y2 = y + len*Math.sin(angle);
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x2,y2);
+  ctx.stroke();
+  drawBranch(x2,y2,len*0.7,angle-params.angle,depth-1);
+  drawBranch(x2,y2,len*0.7,angle+params.angle,depth-1);
+}
+function render(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle='green';
+  drawBranch(canvas.width/2, canvas.height, canvas.height/4, -Math.PI/2, 8);
+}
+canvas.addEventListener('mousemove', e=>{
+  params.angle = (e.clientX/canvas.width)*Math.PI/2;
+  render();
+});
+render();
+</script>
+</body>
+</html>
