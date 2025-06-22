@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Academic Curiosity Stations</title>
+<style>
+  body { font-family:sans-serif; margin:20px; text-align:center; }
+</style>
+</head>
+<body>
+<h1>Academic Curiosity Stations</h1>
+<select id="topic">
+  <option value="nautilus">Nautilus Shell</option>
+  <option value="pinecone">Pine Cone</option>
+</select>
+<p id="info"></p>
+<script>
+const infoData = {
+  nautilus:'The nautilus shell forms a logarithmic spiral, described by r = ae^(b\u03b8).',
+  pinecone:'The arrangement of scales in a pine cone follows the Fibonacci sequence.'
+};
+const info = document.getElementById('info');
+const topic = document.getElementById('topic');
+function update(){ info.textContent = infoData[topic.value]; }
+topic.addEventListener('change',update);
+update();
+</script>
+</body>
+</html>
