@@ -21,6 +21,7 @@ const quotes = [
 const canvas = document.getElementById('motionCanvas');
 const ctx = canvas.getContext('2d');
 let idx = 0;
+let lastChange = 0;
 function draw(){
   ctx.fillStyle='rgba(0,0,0,0.05)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -35,8 +36,12 @@ function draw(){
   requestAnimationFrame(draw);
 }
 canvas.addEventListener('mousemove', ()=>{
-  idx=(idx+1)%quotes.length;
-  document.getElementById('quote').textContent=quotes[idx];
+  const now = Date.now();
+  if(now - lastChange > 1000){
+    idx=(idx+1)%quotes.length;
+    document.getElementById('quote').textContent=quotes[idx];
+    lastChange = now;
+  }
 });
 document.getElementById('quote').textContent=quotes[0];
 draw();
