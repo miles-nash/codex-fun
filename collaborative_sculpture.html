@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Collaborative Sculpture</title>
+<style>
+  body { font-family:sans-serif; text-align:center; margin:20px; }
+  #board { position:relative; width:800px; height:400px; border:1px solid #ccc; margin:20px auto; }
+  .piece { position:absolute; padding:10px; border-radius:4px; cursor:grab; user-select:none; color:#222; }
+</style>
+</head>
+<body>
+<h1>Collaborative Sculpture</h1>
+<textarea id="message" rows="3" cols="40" placeholder="Add your reflection"></textarea><br>
+<button id="add">Add to sculpture</button>
+<div id="board"></div>
+<script>
+const board = document.getElementById('board');
+
+function createPiece(text){
+  const div = document.createElement('div');
+  div.className = 'piece';
+  div.textContent = text;
+  div.style.background = `hsl(${Math.random()*360},60%,80%)`;
+  div.style.left = `${Math.random()*(board.clientWidth-60)}px`;
+  div.style.top = `${Math.random()*(board.clientHeight-20)}px`;
+  let ox=0, oy=0, dragging=false;
+  div.addEventListener('pointerdown', e=>{
+    dragging=true;
+    ox=e.offsetX; oy=e.offsetY;
+    div.style.cursor='grabbing';
+  });
+  window.addEventListener('pointermove', e=>{
+    if(!dragging) return;
+    const rect = board.getBoundingClientRect();
+    div.style.left = `${e.clientX-rect.left-ox}px`;
+    div.style.top = `${e.clientY-rect.top-oy}px`;
+  });
+  window.addEventListener('pointerup', ()=>{ dragging=false; div.style.cursor='grab'; });
+  return div;
+}
+
+document.getElementById('add').addEventListener('click', ()=>{
+  const input = document.getElementById('message');
+  const text = input.value.trim();
+  if(text){
+    board.appendChild(createPiece(text));
+    input.value='';
+  }
+});
+</script>
+</body>
+</html>

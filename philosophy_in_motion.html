@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Philosophy in Motion</title>
+<style>
+  body { margin:0; background:#000; color:#fff; font-family:sans-serif; text-align:center; }
+  #quote { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:24px; }
+</style>
+</head>
+<body>
+<h1>Philosophy in Motion</h1>
+<canvas id="motionCanvas" width="800" height="600"></canvas>
+<div id="quote"></div>
+<script>
+const quotes = [
+  'What is order, if not the balance between chaos and structure?',
+  'The unexamined life is not worth living.',
+  'We are a way for the cosmos to know itself.'
+];
+const canvas = document.getElementById('motionCanvas');
+const ctx = canvas.getContext('2d');
+let idx = 0;
+let lastChange = 0;
+function draw(){
+  ctx.fillStyle='rgba(0,0,0,0.05)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  const t=Date.now()/1000;
+  for(let i=0;i<50;i++){
+    const angle=t+i;
+    const x=canvas.width/2+200*Math.cos(angle)/i;
+    const y=canvas.height/2+200*Math.sin(angle)/i;
+    ctx.fillStyle='hsl('+(angle*50%360)+',50%,50%)';
+    ctx.fillRect(x,y,2,2);
+  }
+  requestAnimationFrame(draw);
+}
+canvas.addEventListener('mousemove', ()=>{
+  const now = Date.now();
+  if(now - lastChange > 1000){
+    idx=(idx+1)%quotes.length;
+    document.getElementById('quote').textContent=quotes[idx];
+    lastChange = now;
+  }
+});
+document.getElementById('quote').textContent=quotes[0];
+draw();
+</script>
+</body>
+</html>
